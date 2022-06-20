@@ -18,9 +18,9 @@ void Circle::setRadius(int r)
 	m_r = r;
 }
 
-void Circle::draw() const
+void Circle::draw(int color) const
 {
-	setcolor(WHITE);
+	setcolor(color);
 	circle(m_x, m_y, m_r);
 }
 

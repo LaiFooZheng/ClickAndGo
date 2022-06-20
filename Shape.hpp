@@ -15,7 +15,7 @@ public:
 	Circle(int x, int y, int r);
 	void setLocation(int x, int y);
 	void setRadius(int r);
-	void draw() const;
+	void draw(int) const;
 	void undraw() const;
 	int distance(const Circle &circle);
 	int operator-(const Circle &circle);
