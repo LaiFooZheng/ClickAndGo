@@ -4,14 +4,13 @@
 #include <cstdio>
 #include <stdlib.h> /* srand, rand */
 #include "Clock.h"
-#include "Shape.hpp"
+#include "Circle.hpp"
 #include <stdio.h>
 #include <conio.h>
-
+#include "Shape.hpp"
 using namespace std;
 
 int displacement(const Circle &c1, const Circle &c2);
-int randomGenerator(int offset, int max);
 
 void DisplayText(char* const text)
 {
@@ -89,10 +88,8 @@ int main()
     srand(time(NULL));
 	readimagefile("Click & GO Storyboard.jpg", 0 , 0, width , height);
 
-    Circle circles;
-	w_Max = randomGenerator(radius, width);
-	h_Max = randomGenerator(radius, height);
-	circles.setLocation(w_Max, h_Max);
+  Circle circles;
+	circles.setLocation(width, height);
 	circles.setRadius(radius);
 	circles.draw(15); // White
 
@@ -112,9 +109,7 @@ int main()
 				cout << "Hit" << endl;
 				score += 100;
 				circles.undraw();
-				w_Max = randomGenerator(radius, width);
-				h_Max = randomGenerator(radius, height);
-				circles.setLocation(w_Max, h_Max);
+				circles.setLocation(width, height);
 				circles.draw(2);
 				setcolor(WHITE);
        			cleartext(0, 0);
@@ -131,9 +126,7 @@ int main()
 				circles.undraw();
 				lifepoint--;
 				cout << "Miss" << endl;
-				w_Max = randomGenerator(radius, width);
-				h_Max = randomGenerator(radius, height);
-				circles.setLocation(w_Max, h_Max);
+				circles.setLocation(width, height);
 				circles.draw(15);
        			cleartext(0, 0);
 				cleartext(width - 300, 0);
@@ -153,9 +146,7 @@ int main()
 			cout << "Out of bound" << endl;
 			circles.undraw();
 			clock.reset();
-			w_Max = randomGenerator(radius, width);
-			h_Max = randomGenerator(radius, height);
-			circles.setLocation(w_Max, h_Max);
+			circles.setLocation(width, height);
 			circles.draw(15);
 			cleartext(0, 0);
 			cleartext(width - 300, 0);
@@ -186,10 +177,3 @@ int displacement(const Circle &c1, const Circle &c2)
 	return c - c2;
 }
 
-int randomGenerator(int offset, int max) 
-{
-	int pos = rand() % (max - offset);
-	if(pos <= offset)
-		return pos + offset;
-	return pos;
-}
