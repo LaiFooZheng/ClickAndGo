@@ -1,30 +1,43 @@
 #include "Shape.hpp"
 #include <graphics.h>
 #include <cmath>
-using namespace std;
 
-Circle::Circle() : 	m_x(0), m_y(0),  m_r(0),  m_dx (0), m_dy(0){}
-Circle::Circle(int x, int y, int r, int dx, int dy) : 	m_x(x), m_y(y),  m_r(r),  m_dx (dx), m_dy (dy){}
-Circle::Circle(int x, int y, int r) : m_x(x), m_y(y),  m_r(r) {}
+// Parent Shape
+Shape::Shape()
+	: m_x(0), m_y(0), m_dx (0), m_dy(0) {}
+Shape::Shape(int x, int y)
+	: m_x(x), m_y(y) {}
+Shape::Shape(int x, int y, int dx, int dy)
+	: m_x(x), m_y(y), m_dx (dx), m_dy (dy) {}
 
-void Circle::setLocation(int x, int y)
+int Shape::randomGenerator(int offset, int max)
 {
-    m_x = x;
-    m_y = y;
+	int pos = rand() % (max - offset);
+	if (pos <= offset)
+		return pos + offset;
+	return pos;
 }
+
+// Circle Shape
+Circle::Circle() 
+	: m_r(0) {}
+Circle::Circle(int x, int y, int r) 
+	: Shape(x, y),  m_r(r) {}	
+Circle::Circle(int x, int y, int r, int dx, int dy)
+	: Shape(x, y, dx, dy),  m_r(r) {}
 
 void Circle::setRadius(int r)
 {
 	m_r = r;
 }
 
-void Circle::draw(int color) const
+void Circle::drawCircle(int color) const
 {
 	setcolor(color);
 	circle(m_x, m_y, m_r);
 }
 
-void Circle::undraw() const
+void Circle::undrawCircle() const
 {
 	setcolor(BLACK);
 	circle(m_x, m_y, m_r);
@@ -40,3 +53,8 @@ int Circle::operator-(const Circle &circle)
   	return distance(circle);
 }
 
+void Circle::setLocationCircle(int width, int height)
+{
+    m_x = randomGenerator(m_r,width);
+    m_y = randomGenerator(m_r,height); 
+}
