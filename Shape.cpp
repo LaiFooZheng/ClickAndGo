@@ -55,18 +55,30 @@ int Circle::operator-(const Circle &circle)
 
 void Circle::setLocationCircle(int width, int height)
 {
+	int offset = height/ 8;
+
     m_x = randomGenerator(m_r,width);
-    m_y = randomGenerator(m_r,height); 
+    m_y = randomGenerator(m_r,height) + offset; 
+}
+
+int displacement(const Circle &c1, const Circle &c2){
+	Circle c = c1;
+	return c - c2;
+}
+
+void Drawing(Circle &circles, int width , int playheight, int color)
+{
+	circles.undrawCircle();
+	circles.setLocationCircle(width, playheight);
+	circles.drawCircle(color);
 }
 
 // Triangle Shape
 void Triangle::drawTriangle() const
 {
-  line(m_x - 150, m_y, m_x + 150, m_y);
-
-  line(m_x - 150, m_y, m_x , m_y + 150);
-
-  line(m_x + 150, m_y, m_x , m_y + 150);
+	line(m_x - 150, m_y, m_x + 150, m_y);
+	line(m_x - 150, m_y, m_x , m_y + 150);
+	line(m_x + 150, m_y, m_x , m_y + 150);
 
 }
 
@@ -76,7 +88,3 @@ void Triangle::setLocationTriangle(int width, int height)
     m_y = randomGenerator(100,height); 
 }
 
-int displacement(const Circle &c1, const Circle &c2){
-	Circle c = c1;
-	return c - c2;
-}

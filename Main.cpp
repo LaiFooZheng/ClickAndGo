@@ -12,21 +12,15 @@
 
 using namespace std;
 
-void Drawing(Circle &circles, int width , int height, int color)
-{
-	circles.undrawCircle();
-	circles.setLocationCircle(width, height);
-	circles.drawCircle(color);
-}
-
 int main() 
 { 
-	DisplayText("PRESS ANY KEY TO START THE GAME") ;
+	DisplayText("PRESS ANY KEY TO START THE GAME");
 	Clock<> clock;
     constexpr long long Rate = 1000;
     int lifepoint = 10 ;
     int width = getmaxwidth();
     int height = getmaxheight();
+	int playheight = height / 8 * 6;
     char ch = 0; // Set placeholder key
     int radius = 100;
     
@@ -57,9 +51,9 @@ int main()
 			{
 				score += 100;
 				clock.reset();
-				Drawing(circles, width, height, 2);
+				Drawing(circles, width, playheight, 2);
 				setcolor(WHITE);
-				Points(width, lifepoint, score);
+				Points(width, height, lifepoint, score);
 
 				cout << "HIT" << endl;
 			}
@@ -67,8 +61,8 @@ int main()
 			{
 				lifepoint--;
 				clock.reset();
-				Drawing(circles, width, height, 15);
-				Points(width, lifepoint, score);
+				Drawing(circles, width, playheight, 15);
+				Points(width, height, lifepoint, score);
 				cout << "MISS" << endl;
 			}
 		}
@@ -77,8 +71,8 @@ int main()
 		{
 			lifepoint--;
 			clock.reset();
-			Drawing(circles, width, height, 15);
-			Points(width, lifepoint, score) ;
+			Drawing(circles, width, playheight, 15);
+			Points(width, height, lifepoint, score) ;
 
 			cout << "NO INPUT" << endl;
 		}

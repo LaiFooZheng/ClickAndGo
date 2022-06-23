@@ -33,6 +33,7 @@ public:
 };
 
 int displacement(const Circle &c1, const Circle &c2);
+void Drawing(Circle &circles, int width , int playheight, int color);
 
 class Triangle : public Shape
 {
