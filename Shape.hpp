@@ -31,3 +31,10 @@ public:
 	int operator-(const Circle &circle);
 	void setLocationCircle(int x, int y);
 };
+
+class Triangle : public Shape
+{
+public:
+	void drawTriangle() const ;
+	void setLocationTriangle(int, int);
+};

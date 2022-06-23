@@ -58,3 +58,20 @@ void Circle::setLocationCircle(int width, int height)
     m_x = randomGenerator(m_r,width);
     m_y = randomGenerator(m_r,height); 
 }
+
+// Triangle Shape
+void Triangle::drawTriangle() const
+{
+  line(m_x - 150, m_y, m_x + 150, m_y);
+
+  line(m_x - 150, m_y, m_x , m_y + 150);
+
+  line(m_x + 150, m_y, m_x , m_y + 150);
+
+}
+
+void Triangle::setLocationTriangle(int width, int height)
+{   
+    m_x = randomGenerator(100,width);
+    m_y = randomGenerator(100,height); 
+}
