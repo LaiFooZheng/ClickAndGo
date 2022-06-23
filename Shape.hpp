@@ -32,6 +32,8 @@ public:
 	void setLocationCircle(int x, int y);
 };
 
+int displacement(const Circle &c1, const Circle &c2);
+
 class Triangle : public Shape
 {
 public:

@@ -20,7 +20,7 @@ int Shape::randomGenerator(int offset, int max)
 
 // Circle Shape
 Circle::Circle() 
-	: m_r(0) {}
+	: m_r(100) {}
 Circle::Circle(int x, int y, int r) 
 	: Shape(x, y),  m_r(r) {}	
 Circle::Circle(int x, int y, int r, int dx, int dy)
@@ -74,4 +74,9 @@ void Triangle::setLocationTriangle(int width, int height)
 {   
     m_x = randomGenerator(100,width);
     m_y = randomGenerator(100,height); 
+}
+
+int displacement(const Circle &c1, const Circle &c2){
+	Circle c = c1;
+	return c - c2;
 }
