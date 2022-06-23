@@ -1,6 +1,6 @@
-#include "Shape.hpp"
 #include <graphics.h>
 #include <cmath>
+#include "Shape.hpp"
 
 // Parent Shape
 Shape::Shape()
