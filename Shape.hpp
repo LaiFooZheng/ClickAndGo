@@ -9,6 +9,8 @@ protected:
 public:
   Shape() ;
   Shape(int x, int y) ;
+ 	int randomGenerator(int offset, int max) ;
+
 };
 
 #endif

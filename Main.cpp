@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include "Shape.hpp"
+#include "Triangle.hpp"
 using namespace std;
 
 int displacement(const Circle &c1, const Circle &c2);
@@ -93,9 +94,13 @@ int main()
 	circles.setRadius(radius);
 	circles.draw(15); // White
 
+	Triangle triangles ;
+
 	//Game Loop
     while (ch != 27) // ASCII code 27 is the ESC key
-    {
+    {	
+
+		
 		if (ismouseclick(WM_LBUTTONDOWN))
 		{
 			int mx, my;
@@ -108,6 +113,8 @@ int main()
 				clock.reset();
 				cout << "Hit" << endl;
 				score += 100;
+				triangles.setLocation(width, height) ;
+				triangles.draw() ;
 				circles.undraw();
 				circles.setLocation(width, height);
 				circles.draw(2);

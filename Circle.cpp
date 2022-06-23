@@ -42,10 +42,3 @@ void Circle::setLocation(int width, int height)
     m_y = randomGenerator(m_r,height); 
 }
 
-int Circle::randomGenerator(int offset, int max) 
-{
-	int pos = rand() % (max - offset);
-	if(pos <= offset)
-		return pos + offset;
-	return pos;
-}

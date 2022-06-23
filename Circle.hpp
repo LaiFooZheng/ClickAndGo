@@ -19,7 +19,7 @@ public:
 	int distance(const Circle &circle);
 	int operator-(const Circle &circle);
 	void setLocation(int, int);
- 	int randomGenerator(int offset, int max) ;
+
 
 };
 
