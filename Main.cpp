@@ -12,9 +12,13 @@
 using namespace std;
 
 int displacement(const Circle &c1, const Circle &c2);
-
-void DisplayText(char* const text)
+void Drawing( Circle&, int ,int, int);
+void Points(int, int, int) ;
+// void DisplayText(char* const text)
+int DisplayText(bool gameover)
 {
+
+
 	int gdriver = DETECT, gmode, errorcode;
 
 	int style, midx, midy;
@@ -39,19 +43,61 @@ void DisplayText(char* const text)
 		exit(1);               /* terminate with an error code */
 	}
 
-	midx = getmaxx() / 2;
 
-	midy = getmaxy() / 2;
+	int width = getmaxx() ;
+	int height = getmaxy() ;
 	style = 6 ;
-	settextjustify(CENTER_TEXT, CENTER_TEXT);
+	char ch = 0;
 	cleardevice();
 
-	settextstyle(style, HORIZ_DIR, size);
+	
+	if(gameover == false){
+			readimagefile("Click & GO Storyboard (Difficulty).jpg", 0 , 0, width , height) ;
+		while (ch != 27) {
+			cout << mousex() << " " << mousey() << endl ;
+			int mx = mousex() ;
+			int my = mousey() ;
+			if(mx > 200 && mx < 450 && my > 220 && my < 250  )
+				readimagefile("Click & GO Storyboard (normal).jpg", 0 , 0, width , height) ;
+			else if(mx > 245 && mx < 400 && my > 240 && my < 325)
+				readimagefile("Click & GO Storyboard (hard).jpg", 0 , 0, width , height) ;
+			else if(mx > 220 && mx < 430 && my > 370 && my < 400)
+				readimagefile("Click & GO Storyboard (insane).jpg", 0 , 0, width , height) ;
+			else
+				readimagefile("Click & GO Storyboard (Difficulty).jpg", 0 , 0, width , height) ;
+
+			if (ismouseclick(WM_LBUTTONDOWN)){
+				
+				int mx , my ;
+				getmouseclick(WM_LBUTTONDOWN, mx, my);{
+					cout << mx << "  " << my << endl ;
+					if(mx > 200 && mx < 450 && my > 220 && my < 250  )
+					return 1 ;
+					else if(mx > 245 && mx < 400 && my > 240 && my < 325)
+					return 2 ;
+					else if(mx > 220 && mx < 430 && my > 370 && my < 400)
+					return 3;
+					
+				}
+			}
+		}
+	
+	}
+	else{
+		
+		settextjustify(CENTER_TEXT, CENTER_TEXT);
+		settextstyle(style, HORIZ_DIR, size);
+
+		midx = getmaxx() / 2;
+		midy = getmaxy() / 2;
+
+	char* text = "GAME OVER" ;
 	outtextxy(midx, midy, text);
 
 	if(getch()){
 		closegraph();
-		return ;
+		return 0;
+	}
 	}
 	/* clean up */
 }
@@ -65,7 +111,9 @@ void cleartext(int x, int y)
 
 int main() 
 { 
-	DisplayText("PRESS ANY KEY TO START THE GAME") ;
+	bool gameover = false ;
+	// DisplayText("PRESS ANY KEY TO START THE GAME") ;
+	cout << DisplayText(gameover) ;
 	Clock<> clock;
 	// constexpr long long spawnRate= 1;
     constexpr long long Rate = 1000;
@@ -101,7 +149,7 @@ int main()
     {	
 
 		
-		if (ismouseclick(WM_LBUTTONDOWN))
+	if (ismouseclick(WM_LBUTTONDOWN))
 		{
 			int mx, my;
 			getmouseclick(WM_LBUTTONDOWN, mx, my);
@@ -111,21 +159,12 @@ int main()
 			if (displacement(circles, cur) <= radius)
 			{
 				clock.reset();
-				cout << "Hit" << endl;
 				score += 100;
 				triangles.setLocation(width, height) ;
 				triangles.draw() ;
-				circles.undraw();
-				circles.setLocation(width, height);
-				circles.draw(2);
+				Drawing(circles, width, height, 2);
 				setcolor(WHITE);
-       			cleartext(0, 0);
-				cleartext(width - 300, 0);
-				sprintf(msg, "Life :%d", lifepoint);
-				sprintf(msg2, "Score :%d", score);
-				settextstyle(2, 0, 10);
-				outtextxy(0, 0, msg);
-				outtextxy(width - 300, 0, msg2);
+				Points(width, lifepoint, score);
 			}
 			else 
 			{
@@ -135,39 +174,24 @@ int main()
 				cout << "Miss" << endl;
 				circles.setLocation(width, height);
 				circles.draw(15);
-       			cleartext(0, 0);
-				cleartext(width - 300, 0);
-				sprintf(msg, "Life :%d", lifepoint);
-				sprintf(msg2, "Score :%d", score);
-				settextstyle(2, 0, 10);
-				outtextxy(0, 0, msg);
-				outtextxy(width - 300, 0, msg2);
+				Drawing(circles, width, height, 15);
+				Points(width, lifepoint, score);
 			}
 		}
 
 		else if (clock.getMilliseconds() == Rate)
 		{
-			cout << clock.getMilliseconds() << endl;
-			cout << "Life : " << lifepoint;
 			lifepoint--;
-			cout << "Out of bound" << endl;
-			circles.undraw();
 			clock.reset();
-			circles.setLocation(width, height);
-			circles.draw(15);
-			cleartext(0, 0);
-			cleartext(width - 300, 0);
-			sprintf(msg, "Life :%d", lifepoint);
-			sprintf(msg2, "Score :%d", score);
-			settextstyle(2, 0, 10);
-			outtextxy(0, 0, msg);        
-			outtextxy(width - 300, 0, msg2);
+			Drawing(circles, width, height, 15);
+			Points(width, lifepoint, score);
 		}
 					
 		if (lifepoint == 0)
 		{
-			DisplayText("GAME OVER");
-			cout << "Game Over" << endl;
+			// DisplayText("GAME OVER");
+			gameover = true ;
+			DisplayText(gameover);
 			exit(1);
 		}
 		// clock.reset();
@@ -184,3 +208,23 @@ int displacement(const Circle &c1, const Circle &c2)
 	return c - c2;
 }
 
+void Drawing(Circle &circles, int width , int height, int color){
+		circles.undraw();
+		circles.setLocation(width, height);
+		circles.draw(color);
+}
+
+void Points(int width, int lifepoint, int score){
+	char msg[128];
+	// char *msg2 = new char[strlen(msg)] ;
+	char msg2[128] ;
+				cleartext(0, 0);
+	cleartext(width - 300, 0);
+	sprintf(msg, "Life :%d", lifepoint);
+	sprintf(msg2, "Score :%d", score);
+	settextstyle(2, 0, 10);
+	outtextxy(0, 0, msg);
+	outtextxy(width - 300, 0, msg2);
+
+	// delete [] msg2 ;
+}
