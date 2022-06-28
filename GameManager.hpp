@@ -1,6 +1,6 @@
 #pragma once
 
-void DisplayText(char* const text);
+int DisplayText(bool gameover);
 
 void cleartext(int x, int y);
 

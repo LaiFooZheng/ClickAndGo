@@ -14,7 +14,9 @@ using namespace std;
 
 int main() 
 { 
-	DisplayText("PRESS ANY KEY TO START THE GAME");
+	bool gameover = false;
+	// DisplayText("PRESS ANY KEY TO START THE GAME");
+	cout << DisplayText(gameover);
 	Clock<> clock;
     constexpr long long Rate = 1000;
     int lifepoint = 10 ;
@@ -34,21 +36,18 @@ int main()
 	readimagefile("Click & GO Storyboard.jpg", 0 , 0, width , height);
 
     Circle circles;
-	// circles.setLocationCircle(width, height);
-	// circles.setRadius(radius);
-	// circles.drawCircle(15); // White
 
 	//Game Loop
     while (ch != 27) // ASCII code 27 is the ESC key
     {
 		if (ismouseclick(WM_LBUTTONDOWN))
-		{
+		{	
 			int mx, my;
 			getmouseclick(WM_LBUTTONDOWN, mx, my);
 			Circle cur = Circle(mx, my, 0);
 
 			if (displacement(circles, cur) <= radius)
-			{
+			{	
 				score += 100;
 				clock.reset();
 				Drawing(circles, width, playheight, 2);
@@ -72,7 +71,7 @@ int main()
 			lifepoint--;
 			clock.reset();
 			Drawing(circles, width, playheight, 15);
-			Points(width, height, lifepoint, score) ;
+			Points(width, height, lifepoint, score);
 
 			cout << "NO INPUT" << endl;
 		}
@@ -82,7 +81,7 @@ int main()
 			cout << "Game Over" << endl;
 			cout << height << endl;
 			cout << width << endl;
-			DisplayText("GAME OVER");
+			DisplayText(gameover);
 			exit(1);
 		}
 	}
