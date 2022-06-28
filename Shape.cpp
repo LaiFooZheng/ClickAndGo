@@ -66,7 +66,7 @@ int displacement(const Circle &c1, const Circle &c2){
 	return c - c2;
 }
 
-void Drawing(Circle &circles, int width , int playheight, int color)
+void drawing(Circle &circles, int width , int playheight, int color)
 {
 	circles.undrawCircle();
 	circles.setLocationCircle(width, playheight);

@@ -30,10 +30,11 @@ public:
 	int distance(const Circle &circle);
 	int operator-(const Circle &circle);
 	void setLocationCircle(int x, int y);
+	friend void displayText(const Circle &circles, char *text) ;
 };
 
 int displacement(const Circle &c1, const Circle &c2);
-void Drawing(Circle &circles, int width , int playheight, int color);
+void drawing(Circle &circles, int width , int playheight, int color);
 
 class Triangle : public Shape
 {
