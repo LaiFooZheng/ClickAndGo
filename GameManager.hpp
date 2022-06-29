@@ -1,6 +1,8 @@
 #pragma once
 
-int difficultyMenu(bool gameover);
+int startingMenu(bool gameover);
+
+int difficultyMenu();
 
 void cleartext(int x, int y);
 
