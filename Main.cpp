@@ -15,8 +15,18 @@ using namespace std;
 int main() 
 { 
 	bool gameover = false;
-	int gamemode = difficultyMenu(gameover);
-
+	int gamemode = 0;
+	int starting_choice = startingMenu(gameover);
+	if (starting_choice == 1) 
+	{
+		gamemode = difficultyMenu();
+	}
+	else if (starting_choice == 2)
+	{
+		/* code */
+	}
+	
+	
 	Clock<> clock;
     long long rate = 2000;
 	int max_rate = 600;
@@ -28,6 +38,7 @@ int main()
     int height = getmaxheight();
 	int playheight = height / 8 * 6;
     char ch = 0; // Set placeholder key
+    char ch1 = 0; // Set placeholder key
     int radius = 100;
     
 	int score = 0;
@@ -45,6 +56,7 @@ int main()
     Circle circles;
 	Square squares;
 
+	// For Hard Gamemode
 	if(gamemode == 2)
 	{
 		squares.setSide(100);
@@ -113,9 +125,10 @@ int main()
 		{
 			cout << "Game Over" << endl;	
 			gameover = true;
-			difficultyMenu(gameover);
+			startingMenu(gameover);
 			exit(1);
 		}
+
 	}
 
   	return 0 ;

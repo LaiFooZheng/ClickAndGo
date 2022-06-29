@@ -5,7 +5,7 @@
 #include <conio.h>
 #include "Shape.hpp"
 
-int difficultyMenu(bool gameover)
+int startingMenu(bool gameover)
 {
 	int gdriver = DETECT, gmode, errorcode;
 	int style = 6, midx, midy;
@@ -32,19 +32,19 @@ int difficultyMenu(bool gameover)
 
 	if(gameover == false) 
 	{
-		readimagefile("asset/difficulty_menu", 0 , 0, width , height);
+		readimagefile("asset/starting_menu", 0, 0, width , height);
 		while (ch != 27) 
 		{
 			int mx = mousex() ;
 			int my = mousey() ;
 			if(mx > 200 && mx < 450 && my > 220 && my < 250)
-				readimagefile("asset/difficulty_menu (normal).jpg", 0 , 0, width , height);
+				readimagefile("asset/starting_menu (play).jpg", 0 , 0, width , height);
 			else if(mx > 245 && mx < 400 && my > 294 && my < 325)
-				readimagefile("asset/difficulty_menu (hard).jpg", 0 , 0, width , height);
+				readimagefile("asset/starting_menu (howtoplay).jpg", 0 , 0, width , height);
 			else if(mx > 220 && mx < 430 && my > 370 && my < 400)
-				readimagefile("asset/difficulty_menu (insane).jpg", 0 , 0, width , height);
+				readimagefile("asset/starting_menu (exit).jpg", 0 , 0, width , height);
 			else
-				readimagefile("asset/difficulty_menu.jpg", 0 , 0, width , height);
+				readimagefile("asset/starting_menu.jpg", 0 , 0, width , height);
 
 			if (ismouseclick(WM_LBUTTONDOWN))
 			{
@@ -85,6 +85,67 @@ int difficultyMenu(bool gameover)
 		}
 	}
 	/* clean up */
+}
+
+int difficultyMenu()
+{
+	int gdriver = DETECT, gmode, errorcode;
+	int style = 6, midx, midy;
+	int size = 1 ;
+	/* initialize graphics and local variables */
+
+	initgraph(&gdriver, &gmode, "");
+
+	/* read result of initialization */
+
+	errorcode = graphresult();
+	if (errorcode != grOk) 
+	{  /* an error occurred */
+		printf("Graphics error: %s\n", grapherrormsg(errorcode));
+		printf("Press any key to halt:");
+		getch();
+		exit(1);               /* terminate with an error code */
+	}
+
+	int width = getmaxx() ;
+	int height = getmaxy() ;
+	char ch = 0;
+	cleardevice();
+
+	readimagefile("asset/difficulty_menu", 0, 0, width , height);
+	while (ch != 27) 
+	{
+		int mx = mousex() ;
+		int my = mousey() ;
+		if(mx > 200 && mx < 450 && my > 220 && my < 250)
+			readimagefile("asset/difficulty_menu (normal).jpg", 0 , 0, width , height);
+		else if(mx > 245 && mx < 400 && my > 294 && my < 325)
+			readimagefile("asset/difficulty_menu (hard).jpg", 0 , 0, width , height);
+		else if(mx > 220 && mx < 430 && my > 370 && my < 400)
+			readimagefile("asset/difficulty_menu (insane).jpg", 0 , 0, width , height);
+		else
+			readimagefile("asset/difficulty_menu.jpg", 0 , 0, width , height);
+
+		if (ismouseclick(WM_LBUTTONDOWN))
+		{
+			int mx , my ;
+			getmouseclick(WM_LBUTTONDOWN, mx, my);
+			std::cout << mx << "  " << my << std::endl;
+			if(mx > 200 && mx < 450 && my > 220 && my < 250){
+				closegraph();
+				return 1 ;
+			}
+			else if(mx > 245 && mx < 400 && my > 294 && my < 325){
+				closegraph();
+				return 2 ;
+			}
+			else if(mx > 220 && mx < 430 && my > 370 && my < 400){
+				closegraph();
+				return 3;
+			}
+			
+		}
+	}
 }
 
 void cleartext(int x1, int y1, int x2, int y2)
@@ -140,4 +201,75 @@ void displayText(const Circle &circles, char *text)
 	outtextxy(x - r / 3, y - r / 6, text);
 	delay(200);
 	cleartext(x - r / 3, y - r / 6 , x + r / 2, y + r / 2);
+}
+
+
+void Gameover()
+{
+	int gdriver = DETECT, gmode, errorcode;
+	int style = 6, midx, midy;
+	int size = 1 ;
+	/* initialize graphics and local variables */
+
+	initgraph(&gdriver, &gmode, "");
+
+	/* read result of initialization */
+
+	errorcode = graphresult();
+	if (errorcode != grOk) 
+	{  /* an error occurred */
+		printf("Graphics error: %s\n", grapherrormsg(errorcode));
+		printf("Press any key to halt:");
+		getch();
+		exit(1);               /* terminate with an error code */
+	}
+
+	int width = getmaxx() ;
+	int height = getmaxy() ;
+	char ch = 0 ;
+
+		readimagefile("asset/gameover_menu", 0, 0, width , height);
+		while (ch != 27) 
+	{
+		int mx = mousex() ;
+		int my = mousey() ;
+		if(mx > 200 && mx < 450 && my > 220 && my < 250)
+			readimagefile("asset/difficulty_menu (normal).jpg", 0 , 0, width , height);
+		else if(mx > 245 && mx < 400 && my > 294 && my < 325)
+			readimagefile("asset/difficulty_menu (hard).jpg", 0 , 0, width , height);
+		else if(mx > 220 && mx < 430 && my > 370 && my < 400)
+			readimagefile("asset/difficulty_menu (insane).jpg", 0 , 0, width , height);
+		else
+			readimagefile("asset/difficulty_menu.jpg", 0 , 0, width , height);
+
+		if (ismouseclick(WM_LBUTTONDOWN))
+		{
+			int mx , my ;
+			getmouseclick(WM_LBUTTONDOWN, mx, my);
+			std::cout << mx << "  " << my << std::endl;
+			if(mx > 200 && mx < 450 && my > 220 && my < 250){
+				closegraph();
+
+			}
+			else if(mx > 245 && mx < 400 && my > 294 && my < 325){
+				closegraph();
+
+			}
+			else if(mx > 220 && mx < 430 && my > 370 && my < 400){
+				closegraph();
+
+			}
+			
+		}
+	}
+
+		if (ismouseclick(WM_LBUTTONDOWN))
+		{
+			int mx , my ;
+			getmouseclick(WM_LBUTTONDOWN, mx, my);
+			std::cout << mx << "  " << my << std::endl;
+			if(mx > 200 && mx < 450 && my > 220 && my < 250){
+				difficultyMenu() ;
+			}
+		}
 }
