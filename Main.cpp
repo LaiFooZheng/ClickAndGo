@@ -20,7 +20,9 @@ int main()
 	Clock<> clock;
     long long rate = 2000;
 	int max_rate = 600;
+
     int lifepoint = 10 + 1;
+	int hit = 0, miss = 0, out = -1;
 	
     int width = getmaxwidth();
     int height = getmaxheight();
@@ -31,6 +33,7 @@ int main()
 	int score = 0;
 	int score_temp = 0;
 	int combo = 0;
+	int max_combo = 0;
     // To initialize WinBGI and open a new window for graphic display
     initwindow(width, height, "Click & Go");
 
@@ -60,21 +63,26 @@ int main()
 			if (displacement(circles, cur) <= radius)
 			{	
 				score += ++combo * 100;
-				// cout << "COMBO: " << combo << endl; 
+				if (combo >= max_combo)
+				{
+					max_combo = combo;
+				}				
+				//cout << "max COMBO: " << max_combo << endl; 
 				clock.reset();
 
 				drawing(circles, squares, width, playheight, 2, "HIT");
+				hit++;
 				setcolor(WHITE);
-				points(width, height, lifepoint, score, combo);
+				points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
 
-				// RATE decreaser 
+				// RATE decrease (Gives player less time to react as the score gets higher) 
 				if (rate > max_rate) 
 				{
 					if(score - 10000 >= score_temp)
 					{
 						rate -= 200;
 						score_temp += 10000;
-						cout << "rate decreased " << rate << endl;
+						// cout << "rate decreased " << rate << endl;
 					}
 				}
 			}
@@ -85,7 +93,8 @@ int main()
 				clock.reset();
 
 				drawing(circles, squares, width, playheight, 15, "MISS");
-				points(width, height, lifepoint, score, combo);
+				miss++;
+				points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
 			}
 		}
 
@@ -96,7 +105,8 @@ int main()
 			clock.reset();
 
 			drawing(circles, squares, width, playheight, 15, "OUT");
-			points(width, height, lifepoint, score, combo);
+			out++;
+			points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
 		}
 					
 		if (lifepoint == 0)

@@ -57,7 +57,7 @@ int Circle::operator-(const Circle &circle)
 
 void Circle::setLocationCircle(int width, int height)
 {
-	int offset = height / 8;
+	int offset = height / 6;
 
     m_x = randomGenerator(m_r,width);
     m_y = randomGenerator(m_r,height) + offset; 
@@ -83,7 +83,7 @@ void Square::drawSquare() const
 
 void Square::setLocationSquare(Circle &circles, int width, int height)
 {   
-	int offset = height / 8;
+	int offset = height / 6;
 
     m_x = randomGenerator(m_side * 2, width);
     m_y = randomGenerator(m_side * 2, height) + offset; 

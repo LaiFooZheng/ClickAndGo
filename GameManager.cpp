@@ -93,7 +93,7 @@ void cleartext(int x1, int y1, int x2, int y2)
 	bar(x1, y1, x2, y2);
 }
 
-void points(int width, int height, int lifepoint, int score, int combo)
+void points(int width, int height, int lifepoint, int score, int combo, int max_combo, int hit, int miss, int out)
 {
 	int width_offset = width / 16;
 	int height_offset = height / 36;
@@ -101,20 +101,32 @@ void points(int width, int height, int lifepoint, int score, int combo)
 	char msg[128];
 	char msg2[128];
 	char msg3[128];
+	char msg4[128];
+	char msg5[128];
+	char msg6[128];
 
 	cleartext(width_offset / 2, 0, width_offset * 2, height_offset * 3);
 	cleartext(width - (width_offset * 3), 0, width, height_offset * 3);
-	cleartext(width_offset / 2, height_offset * 34, width_offset * 4, height);
+	cleartext(width_offset / 2, height_offset * 34, width_offset * 6, height);
+
+	cleartext(width - (width_offset * 6), height_offset * 34, width, height);
 
 	sprintf(msg, "Life: %d", lifepoint);
 	sprintf(msg2, "Score: %d", score);
-	sprintf(msg3, "Combo: %d X", combo);
+	sprintf(msg3, "Combo: %dX (MAX %dX)", combo, max_combo);
+	sprintf(msg4, "Hit: %d", hit);
+	sprintf(msg5, "Miss: %d", miss);
+	sprintf(msg6, "Out: %d", out);
 
 	settextstyle(2, 0, 10);
-
-	outtextxy(width_offset / 2, height_offset , msg);
+	outtextxy(width_offset / 2, height_offset, msg);
 	outtextxy(width - (width_offset * 3), height_offset, msg2);
 	outtextxy(width_offset / 2, height_offset * 34, msg3);
+
+	settextstyle(2, 0, 9);
+	outtextxy(width - (width_offset * 6), height_offset * 34, msg4);
+	outtextxy(width - (width_offset * 4), height_offset * 34, msg5);
+	outtextxy(width - (width_offset * 2), height_offset * 34, msg6);
 }
 
 void displayText(const Circle &circles, char *text) 
