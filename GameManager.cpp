@@ -32,19 +32,19 @@ int difficultyMenu(bool gameover)
 
 	if(gameover == false) 
 	{
-		readimagefile("Click & GO Storyboard (Difficulty).jpg", 0 , 0, width , height);
+		readimagefile("asset/difficulty_menu", 0 , 0, width , height);
 		while (ch != 27) 
 		{
 			int mx = mousex() ;
 			int my = mousey() ;
 			if(mx > 200 && mx < 450 && my > 220 && my < 250)
-				readimagefile("Click & GO Storyboard (normal).jpg", 0 , 0, width , height);
+				readimagefile("asset/difficulty_menu (normal).jpg", 0 , 0, width , height);
 			else if(mx > 245 && mx < 400 && my > 294 && my < 325)
-				readimagefile("Click & GO Storyboard (hard).jpg", 0 , 0, width , height);
+				readimagefile("asset/difficulty_menu (hard).jpg", 0 , 0, width , height);
 			else if(mx > 220 && mx < 430 && my > 370 && my < 400)
-				readimagefile("Click & GO Storyboard (insane).jpg", 0 , 0, width , height);
+				readimagefile("asset/difficulty_menu (insane).jpg", 0 , 0, width , height);
 			else
-				readimagefile("Click & GO Storyboard (Difficulty).jpg", 0 , 0, width , height);
+				readimagefile("asset/difficulty_menu.jpg", 0 , 0, width , height);
 
 			if (ismouseclick(WM_LBUTTONDOWN))
 			{

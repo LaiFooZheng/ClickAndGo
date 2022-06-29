@@ -40,7 +40,7 @@ int main()
     /* initialize random seed: */
     srand(time(NULL));
 
-	readimagefile("Click & GO Storyboard.jpg", 0 , 0, width , height);
+	readimagefile("asset/game_background.jpg", 0 , 0, width , height);
 
     Circle circles;
 	Square squares;

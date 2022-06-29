@@ -88,11 +88,11 @@ void Square::setLocationSquare(Circle &circles, int width, int height)
     m_x = randomGenerator(m_side * 2, width);
     m_y = randomGenerator(m_side * 2, height) + offset; 
 
-		if(abs(circles.getX() - m_x) <= circles.getR())
+		if(abs((circles.getX() + m_side) - m_x) <= circles.getR())
 		{
 			m_x += m_side + circles.getR();
 		}
-		if(abs(circles.getY() - m_y) <= circles.getR())
+		if(abs((circles.getY() + m_side) - m_y) <= circles.getR())
 		{
 			m_y += m_side + circles.getR();
 		}		
