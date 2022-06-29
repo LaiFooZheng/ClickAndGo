@@ -5,6 +5,10 @@
 #include <conio.h>
 #include "Shape.hpp"
 
+#include <iostream>
+
+using namespace std ;
+
 int startingMenu(bool gameover)
 {
 	int gdriver = DETECT, gmode, errorcode;
@@ -37,11 +41,11 @@ int startingMenu(bool gameover)
 		{
 			int mx = mousex() ;
 			int my = mousey() ;
-			if(mx > 200 && mx < 450 && my > 220 && my < 250)
+			if(mx > 241 && mx < 395 && my > 200 && my < 230)
 				readimagefile("asset/starting_menu (play).jpg", 0 , 0, width , height);
-			else if(mx > 245 && mx < 400 && my > 294 && my < 325)
+			else if(mx > 115 && mx < 523 && my > 280 && my < 309)
 				readimagefile("asset/starting_menu (howtoplay).jpg", 0 , 0, width , height);
-			else if(mx > 220 && mx < 430 && my > 370 && my < 400)
+			else if(mx > 255 && mx < 382 && my > 367 && my < 397)
 				readimagefile("asset/starting_menu (exit).jpg", 0 , 0, width , height);
 			else
 				readimagefile("asset/starting_menu.jpg", 0 , 0, width , height);
@@ -51,15 +55,15 @@ int startingMenu(bool gameover)
 				int mx , my ;
 				getmouseclick(WM_LBUTTONDOWN, mx, my);
 				std::cout << mx << "  " << my << std::endl;
-				if(mx > 200 && mx < 450 && my > 220 && my < 250){
+				if(mx > 241 && mx < 395 && my > 200 && my < 230){
 					closegraph();
 					return 1 ;
 				}
-				else if(mx > 245 && mx < 400 && my > 294 && my < 325){
-					closegraph();
+				else if(mx > 115 && mx < 523 && my > 280 && my < 309){
+					closegraph() ;
 					return 2 ;
 				}
-				else if(mx > 220 && mx < 430 && my > 370 && my < 400){
+				else if(mx > 255 && mx < 382 && my > 367 && my < 397){
 					closegraph();
 					return 3;
 				}
@@ -85,6 +89,45 @@ int startingMenu(bool gameover)
 		}
 	}
 	/* clean up */
+}
+int howtoplayMenu()
+{	
+	int gdriver = DETECT, gmode, errorcode;
+	int style = 6, midx, midy;
+	int size = 1 ;
+	/* initialize graphics and local variables */
+
+	initgraph(&gdriver, &gmode, "");
+
+	/* read result of initialization */
+
+	errorcode = graphresult();
+	if (errorcode != grOk) 
+	{  /* an error occurred */
+		printf("Graphics error: %s\n", grapherrormsg(errorcode));
+		printf("Press any key to halt:");
+		getch();
+		exit(1);               /* terminate with an error code */
+	}	
+	int width = getmaxx() ;
+	int height = getmaxy() ;
+	char ch = 0  ;
+	cleardevice();
+		while (ch != 27) 
+	{
+		readimagefile("asset/howtoplay.jpg", 0 , 0, width , height);
+
+		if (ismouseclick(WM_LBUTTONDOWN))
+		{
+			int mx , my ;
+			getmouseclick(WM_LBUTTONDOWN, mx, my);
+			std::cout << mx << "  " << my << std::endl;
+			 if(mx > 535 && mx < 609 && my > 398 && my < 456){
+				closegraph();
+				return 2 ;
+			}		
+		}
+	}
 }
 
 int difficultyMenu()
@@ -117,12 +160,10 @@ int difficultyMenu()
 	{
 		int mx = mousex() ;
 		int my = mousey() ;
-		if(mx > 200 && mx < 450 && my > 220 && my < 250)
+		if(mx > 200 && mx < 440 && my > 230 && my < 260)
 			readimagefile("asset/difficulty_menu (normal).jpg", 0 , 0, width , height);
-		else if(mx > 245 && mx < 400 && my > 294 && my < 325)
+		else if(mx > 240 && mx < 400 && my > 313 && my < 341)
 			readimagefile("asset/difficulty_menu (hard).jpg", 0 , 0, width , height);
-		else if(mx > 220 && mx < 430 && my > 370 && my < 400)
-			readimagefile("asset/difficulty_menu (insane).jpg", 0 , 0, width , height);
 		else
 			readimagefile("asset/difficulty_menu.jpg", 0 , 0, width , height);
 
@@ -131,19 +172,18 @@ int difficultyMenu()
 			int mx , my ;
 			getmouseclick(WM_LBUTTONDOWN, mx, my);
 			std::cout << mx << "  " << my << std::endl;
-			if(mx > 200 && mx < 450 && my > 220 && my < 250){
+			if(mx > 200 && mx < 440 && my > 230 && my < 260){
 				closegraph();
 				return 1 ;
 			}
-			else if(mx > 245 && mx < 400 && my > 294 && my < 325){
+			else if(mx > 240 && mx < 400 && my > 313 && my < 341){
 				closegraph();
 				return 2 ;
-			}
-			else if(mx > 220 && mx < 430 && my > 370 && my < 400){
+			}	
+			else if(mx > 535 && mx < 609 && my > 398 && my < 456){
 				closegraph();
-				return 3;
-			}
-			
+				return 3 ;
+			}		
 		}
 	}
 }
@@ -204,9 +244,10 @@ void displayText(const Circle &circles, char *text)
 }
 
 
-void Gameover()
+bool Gameover(int score, int max_combo, int hit, int miss, int out)
 {
-	int gdriver = DETECT, gmode, errorcode;
+
+		int gdriver = DETECT, gmode, errorcode;
 	int style = 6, midx, midy;
 	int size = 1 ;
 	/* initialize graphics and local variables */
@@ -222,54 +263,65 @@ void Gameover()
 		printf("Press any key to halt:");
 		getch();
 		exit(1);               /* terminate with an error code */
-	}
-
+	}	
 	int width = getmaxx() ;
 	int height = getmaxy() ;
-	char ch = 0 ;
+	char ch = 0  ;
 
-		readimagefile("asset/gameover_menu", 0, 0, width , height);
+	cleardevice();
+		readimagefile("asset/gameover_menu.jpg", 0 , 0, width , height);
+
+	//text 
+	char msg[128];
+	char msg2[128];
+	char msg3[128];
+	char msg4[128];
+	char msg5[128];
+
+	sprintf(msg, "%d", score);
+	sprintf(msg2, "%d", max_combo);
+	sprintf(msg3, "%d", hit);
+	sprintf(msg4, "%d", miss);
+	sprintf(msg5, "%d", out);
+
+	settextjustify(CENTER_TEXT, CENTER_TEXT);
+	cout << score ;
+
 		while (ch != 27) 
-	{
+	{	
+
+		settextstyle(2, 0 , 10);
+		outtextxy(185, 265, msg);
+		outtextxy(425, 265, msg2);
+		settextstyle(2, 0 , 9);
+		outtextxy(135, 356, msg3);
+		outtextxy(493, 356, msg4);
+		outtextxy(319, 356, msg5);
+
+
 		int mx = mousex() ;
 		int my = mousey() ;
-		if(mx > 200 && mx < 450 && my > 220 && my < 250)
-			readimagefile("asset/difficulty_menu (normal).jpg", 0 , 0, width , height);
-		else if(mx > 245 && mx < 400 && my > 294 && my < 325)
-			readimagefile("asset/difficulty_menu (hard).jpg", 0 , 0, width , height);
-		else if(mx > 220 && mx < 430 && my > 370 && my < 400)
-			readimagefile("asset/difficulty_menu (insane).jpg", 0 , 0, width , height);
-		else
-			readimagefile("asset/difficulty_menu.jpg", 0 , 0, width , height);
+		if(mx > 79 && mx < 276 && my > 401 && my < 440)
+			readimagefile("asset/gameover_menu (backtomainmenu).jpg", 0 , 0, width , height);
+		else if(mx > 465 && mx < 541 && my > 406 && my < 422)
+			readimagefile("asset/gameover_menu (exit).jpg", 0 , 0, width , height);
+		else 
+			readimagefile("asset/gameover_menu.jpg", 0 , 0, width , height);
 
 		if (ismouseclick(WM_LBUTTONDOWN))
 		{
 			int mx , my ;
 			getmouseclick(WM_LBUTTONDOWN, mx, my);
 			std::cout << mx << "  " << my << std::endl;
-			if(mx > 200 && mx < 450 && my > 220 && my < 250){
-				closegraph();
 
-			}
-			else if(mx > 245 && mx < 400 && my > 294 && my < 325){
+			if(mx > 79 && mx < 276 && my > 401 && my < 440){
 				closegraph();
-
+				return false ;
 			}
-			else if(mx > 220 && mx < 430 && my > 370 && my < 400){
-				closegraph();
-
-			}
-			
+			else if(mx > 465 && mx < 541 && my > 406 && my < 422){
+				return true ;
+			}		
 		}
 	}
 
-		if (ismouseclick(WM_LBUTTONDOWN))
-		{
-			int mx , my ;
-			getmouseclick(WM_LBUTTONDOWN, mx, my);
-			std::cout << mx << "  " << my << std::endl;
-			if(mx > 200 && mx < 450 && my > 220 && my < 250){
-				difficultyMenu() ;
-			}
-		}
 }

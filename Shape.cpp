@@ -90,11 +90,11 @@ void Square::setLocationSquare(Circle &circles, int width, int height)
 
 		if(abs((circles.getX() + m_side) - m_x) <= circles.getR())
 		{
-			m_x += m_side + circles.getR();
+			m_x += circles.getR();
 		}
 		if(abs((circles.getY() + m_side) - m_y) <= circles.getR())
 		{
-			m_y += m_side + circles.getR();
+			m_y += circles.getR();
 		}		
 }
 

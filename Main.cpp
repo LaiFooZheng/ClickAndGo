@@ -14,18 +14,36 @@ using namespace std;
 
 int main() 
 { 
-	bool gameover = false;
+	bool gameover = false ;
+	while(gameover == false){
+	int howtoplay = 2 ;
 	int gamemode = 0;
-	int starting_choice = startingMenu(gameover);
-	if (starting_choice == 1) 
-	{
-		gamemode = difficultyMenu();
+	char ch2 = 0 ;
+	bool game = false ;
+	while( game != true ){
+		int starting_choice = startingMenu(gameover);
+		cout << starting_choice ;
+		if (starting_choice == 1) 
+		{	
+				
+				gamemode = difficultyMenu();
+			// 	if(gamemode != 3)
+			// 		break ;
+			// 	startingMenu(gameover) ;
+
+			// }while(gamemode == 3);
+			if(gamemode == 1 || gamemode == 2)
+			game = true ;
+		}
+		else if (starting_choice == 2)
+		{
+			howtoplayMenu() ;
+		}
+		else
+		{	
+			exit(1) ;
+		}
 	}
-	else if (starting_choice == 2)
-	{
-		/* code */
-	}
-	
 	
 	Clock<> clock;
     long long rate = 2000;
@@ -39,7 +57,7 @@ int main()
 	int playheight = height / 8 * 6;
     char ch = 0; // Set placeholder key
     char ch1 = 0; // Set placeholder key
-    int radius = 100;
+    int radius = 50;
     
 	int score = 0;
 	int score_temp = 0;
@@ -124,12 +142,18 @@ int main()
 		if (lifepoint == 0)
 		{
 			cout << "Game Over" << endl;	
-			gameover = true;
-			startingMenu(gameover);
-			exit(1);
+			// gameover = true;
+			gameover = Gameover(score, max_combo, hit, miss, out);
+
+			if(gameover == true)
+				exit(1);
+			else
+				break ;
+			
 		}
 
+		
 	}
-
+	}
   	return 0 ;
 }	
