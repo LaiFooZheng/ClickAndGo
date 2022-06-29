@@ -6,7 +6,7 @@
 #include "Clock.h"
 
 #include <graphics.h>
-#include "Shape1.hpp"
+#include "Shape.hpp"
 
 #include "GameManager.hpp"
 

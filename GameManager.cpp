@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
-#include "Shape1.hpp"
+#include "Shape.hpp"
 
 int difficultyMenu(bool gameover)
 {
