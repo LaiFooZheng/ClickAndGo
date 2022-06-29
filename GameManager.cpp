@@ -35,12 +35,11 @@ int difficultyMenu(bool gameover)
 		readimagefile("Click & GO Storyboard (Difficulty).jpg", 0 , 0, width , height);
 		while (ch != 27) 
 		{
-			// std::cout << mousex() << " " << mousey() << std::endl ;
 			int mx = mousex() ;
 			int my = mousey() ;
 			if(mx > 200 && mx < 450 && my > 220 && my < 250)
 				readimagefile("Click & GO Storyboard (normal).jpg", 0 , 0, width , height);
-			else if(mx > 245 && mx < 400 && my > 240 && my < 325)
+			else if(mx > 245 && mx < 400 && my > 294 && my < 325)
 				readimagefile("Click & GO Storyboard (hard).jpg", 0 , 0, width , height);
 			else if(mx > 220 && mx < 430 && my > 370 && my < 400)
 				readimagefile("Click & GO Storyboard (insane).jpg", 0 , 0, width , height);
@@ -56,7 +55,7 @@ int difficultyMenu(bool gameover)
 					closegraph();
 					return 1 ;
 				}
-				else if(mx > 245 && mx < 400 && my > 240 && my < 325){
+				else if(mx > 245 && mx < 400 && my > 294 && my < 325){
 					closegraph();
 					return 2 ;
 				}
@@ -125,6 +124,7 @@ void displayText(const Circle &circles, char *text)
 	int r = circles.m_r;
 
 	settextstyle(2, 0, 8);
+	setcolor(WHITE);
 	outtextxy(x - r / 3, y - r / 6, text);
 	delay(200);
 	cleartext(x - r / 3, y - r / 6 , x + r / 2, y + r / 2);

@@ -18,8 +18,10 @@ int main()
 	int gamemode = difficultyMenu(gameover);
 
 	Clock<> clock;
-    constexpr long long Rate = 1000;
+    long long rate = 2000;
+	int max_rate = 600;
     int lifepoint = 10 + 1;
+	
     int width = getmaxwidth();
     int height = getmaxheight();
 	int playheight = height / 8 * 6;
@@ -27,6 +29,7 @@ int main()
     int radius = 100;
     
 	int score = 0;
+	int score_temp = 0;
 	int combo = 0;
     // To initialize WinBGI and open a new window for graphic display
     initwindow(width, height, "Click & Go");
@@ -37,6 +40,13 @@ int main()
 	readimagefile("Click & GO Storyboard.jpg", 0 , 0, width , height);
 
     Circle circles;
+	Square squares;
+
+	if(gamemode == 2)
+	{
+		squares.setSide(100);
+			
+	}
 
 	//Game Loop
     while (ch != 27) // ASCII code 27 is the ESC key
@@ -50,46 +60,49 @@ int main()
 			if (displacement(circles, cur) <= radius)
 			{	
 				score += ++combo * 100;
-				cout << "COMBO: " << combo << endl; 
+				// cout << "COMBO: " << combo << endl; 
 				clock.reset();
-				displayText(circles, "HIT");
-				drawing(circles, width, playheight, 2);
+
+				drawing(circles, squares, width, playheight, 2, "HIT");
 				setcolor(WHITE);
 				points(width, height, lifepoint, score, combo);
 
-				cout << "HIT" << endl;
+				// RATE decreaser 
+				if (rate > max_rate) 
+				{
+					if(score - 10000 >= score_temp)
+					{
+						rate -= 200;
+						score_temp += 10000;
+						cout << "rate decreased " << rate << endl;
+					}
+				}
 			}
 			else 
 			{	
 				lifepoint--;
 				combo = 0 ;
 				clock.reset();
-				displayText(circles, "MISS");
-				drawing(circles, width, playheight, 15);
-				points(width, height, lifepoint, score, combo);
 
-				cout << "MISS" << endl;
+				drawing(circles, squares, width, playheight, 15, "MISS");
+				points(width, height, lifepoint, score, combo);
 			}
 		}
 
-		else if (clock.getMilliseconds() == Rate)
+		else if (clock.getMilliseconds() == rate)
 		{
 			lifepoint--;
 			combo = 0 ;
 			clock.reset();
-			displayText(circles, "OUT");
-			drawing(circles, width, playheight, 15);
-			points(width, height, lifepoint, score, combo);
 
-			cout << "NO INPUT" << endl;
+			drawing(circles, squares, width, playheight, 15, "OUT");
+			points(width, height, lifepoint, score, combo);
 		}
 					
 		if (lifepoint == 0)
 		{
 			cout << "Game Over" << endl;	
 			gameover = true;
-			cout << height << endl;
-			cout << width << endl;
 			difficultyMenu(gameover);
 			exit(1);
 		}

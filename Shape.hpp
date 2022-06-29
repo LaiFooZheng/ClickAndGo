@@ -24,6 +24,10 @@ public:
 	Circle(int x, int y, int r, int dx, int dy);
 	
 	void setRadius(int r);
+	int getX();
+	int getY();
+	int getR();
+
 	void drawCircle(int color) const;
 	void undrawCircle() const;
 	
@@ -34,11 +38,19 @@ public:
 };
 
 int displacement(const Circle &c1, const Circle &c2);
-void drawing(Circle &circles, int width , int playheight, int color);
 
-class Triangle : public Shape
+class Square : public Shape
 {
-public:
-	void drawTriangle() const ;
-	void setLocationTriangle(int, int);
+private:
+	int m_side;
+public: 
+	Square();
+	Square(int side);
+
+	void setSide(int side); 
+	void drawSquare() const;
+	void undrawSquare()  const ;
+	void setLocationSquare(Circle &, int, int);
 };
+
+void drawing(Circle &circles, Square &squares, int width, int playheight, int color ,char* text);
