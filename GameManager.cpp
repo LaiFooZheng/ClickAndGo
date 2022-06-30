@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-using namespace std ;
+using namespace std;
 
 int startingMenu(bool gameover)
 {
@@ -34,62 +34,63 @@ int startingMenu(bool gameover)
 	char ch = 0;
 	cleardevice();
 
-	if(gameover == false) 
+	readimagefile("asset/starting_menu", 0, 0, width , height);
+	while (ch != 27) 
 	{
-		readimagefile("asset/starting_menu", 0, 0, width , height);
-		while (ch != 27) 
+		int mx = mousex() ;
+		int my = mousey() ;
+		if(mx > 241 && mx < 395 && my > 200 && my < 230)
+			readimagefile("asset/starting_menu (play).jpg", 0 , 0, width , height);
+		else if(mx > 115 && mx < 523 && my > 280 && my < 309)
+			readimagefile("asset/starting_menu (howtoplay).jpg", 0 , 0, width , height);
+		else if(mx > 255 && mx < 382 && my > 367 && my < 397)
+			readimagefile("asset/starting_menu (exit).jpg", 0 , 0, width , height);
+		else
+			readimagefile("asset/starting_menu.jpg", 0 , 0, width , height);
+
+		if (ismouseclick(WM_LBUTTONDOWN))
 		{
-			int mx = mousex() ;
-			int my = mousey() ;
+			int mx , my ;
+			getmouseclick(WM_LBUTTONDOWN, mx, my);
+			// std::cout << mx << "  " << my << std::endl;
 			if(mx > 241 && mx < 395 && my > 200 && my < 230)
-				readimagefile("asset/starting_menu (play).jpg", 0 , 0, width , height);
-			else if(mx > 115 && mx < 523 && my > 280 && my < 309)
-				readimagefile("asset/starting_menu (howtoplay).jpg", 0 , 0, width , height);
-			else if(mx > 255 && mx < 382 && my > 367 && my < 397)
-				readimagefile("asset/starting_menu (exit).jpg", 0 , 0, width , height);
-			else
-				readimagefile("asset/starting_menu.jpg", 0 , 0, width , height);
-
-			if (ismouseclick(WM_LBUTTONDOWN))
 			{
-				int mx , my ;
-				getmouseclick(WM_LBUTTONDOWN, mx, my);
-				std::cout << mx << "  " << my << std::endl;
-				if(mx > 241 && mx < 395 && my > 200 && my < 230){
-					closegraph();
-					return 1 ;
-				}
-				else if(mx > 115 && mx < 523 && my > 280 && my < 309){
-					closegraph() ;
-					return 2 ;
-				}
-				else if(mx > 255 && mx < 382 && my > 367 && my < 397){
-					closegraph();
-					return 3;
-				}
-				
+				closegraph();
+				return 1;
 			}
+			else if(mx > 115 && mx < 523 && my > 280 && my < 309)
+			{
+				closegraph();
+				return 2 ;
+			}
+			else if(mx > 255 && mx < 382 && my > 367 && my < 397)
+			{
+				closegraph();
+				return 3;
+			}
+			
 		}
 	}
-	else 
-	{
-		settextjustify(CENTER_TEXT, CENTER_TEXT);
-		settextstyle(style, HORIZ_DIR, size);
+	// else 
+	// {
+	// 	settextjustify(CENTER_TEXT, CENTER_TEXT);
+	// 	settextstyle(style, HORIZ_DIR, size);
 
-		midx = getmaxx() / 2;
-		midy = getmaxy() / 2;
+	// 	midx = getmaxx() / 2;
+	// 	midy = getmaxy() / 2;
 
-		char* text = "GAME OVER" ; // Do a game over menu later
-		outtextxy(midx, midy, text);
+	// 	char* text = "GAME OVER" ; // Do a game over menu later
+	// 	outtextxy(midx, midy, text);
 
-		if(getch())
-		{
-			closegraph();
-			return 0;
-		}
-	}
+	// 	if(getch())
+	// 	{
+	// 		closegraph();
+	// 		return 0;
+	// 	}
+	// }
 	/* clean up */
 }
+
 int howtoplayMenu()
 {	
 	int gdriver = DETECT, gmode, errorcode;
@@ -108,21 +109,24 @@ int howtoplayMenu()
 		printf("Press any key to halt:");
 		getch();
 		exit(1);               /* terminate with an error code */
-	}	
+	}
+
 	int width = getmaxx() ;
 	int height = getmaxy() ;
 	char ch = 0  ;
 	cleardevice();
-		while (ch != 27) 
+
+	while (ch != 27) 
 	{
 		readimagefile("asset/howtoplay.jpg", 0 , 0, width , height);
 
 		if (ismouseclick(WM_LBUTTONDOWN))
 		{
-			int mx , my ;
+			int mx, my;
 			getmouseclick(WM_LBUTTONDOWN, mx, my);
-			std::cout << mx << "  " << my << std::endl;
-			 if(mx > 535 && mx < 609 && my > 398 && my < 456){
+			//std::cout << mx << "  " << my << std::endl;
+			 if(mx > 535 && mx < 609 && my > 398 && my < 456)
+			 {
 				closegraph();
 				return 2 ;
 			}		
@@ -171,16 +175,19 @@ int difficultyMenu()
 		{
 			int mx , my ;
 			getmouseclick(WM_LBUTTONDOWN, mx, my);
-			std::cout << mx << "  " << my << std::endl;
-			if(mx > 200 && mx < 440 && my > 230 && my < 260){
+			//std::cout << mx << "  " << my << std::endl;
+			if(mx > 200 && mx < 440 && my > 230 && my < 260)
+			{
 				closegraph();
 				return 1 ;
 			}
-			else if(mx > 240 && mx < 400 && my > 313 && my < 341){
+			else if(mx > 240 && mx < 400 && my > 313 && my < 341)
+			{
 				closegraph();
 				return 2 ;
 			}	
-			else if(mx > 535 && mx < 609 && my > 398 && my < 456){
+			else if(mx > 535 && mx < 609 && my > 398 && my < 456)
+			{
 				closegraph();
 				return 3 ;
 			}		
@@ -244,10 +251,9 @@ void displayText(const Circle &circles, char *text)
 }
 
 
-bool Gameover(int score, int max_combo, int hit, int miss, int out)
+bool gameOver(int score, int max_combo, int hit, int miss, int out)
 {
-
-		int gdriver = DETECT, gmode, errorcode;
+	int gdriver = DETECT, gmode, errorcode;
 	int style = 6, midx, midy;
 	int size = 1 ;
 	/* initialize graphics and local variables */
@@ -269,7 +275,7 @@ bool Gameover(int score, int max_combo, int hit, int miss, int out)
 	char ch = 0  ;
 
 	cleardevice();
-		readimagefile("asset/gameover_menu.jpg", 0 , 0, width , height);
+	readimagefile("asset/gameover_menu.jpg", 0 , 0, width , height);
 
 	//text 
 	char msg[128];
@@ -285,11 +291,10 @@ bool Gameover(int score, int max_combo, int hit, int miss, int out)
 	sprintf(msg5, "%d", out);
 
 	settextjustify(CENTER_TEXT, CENTER_TEXT);
-	cout << score ;
+	// cout << score ;
 
-		while (ch != 27) 
+	while (ch != 27) 
 	{	
-
 		settextstyle(2, 0 , 10);
 		outtextxy(185, 265, msg);
 		outtextxy(425, 265, msg2);
@@ -297,7 +302,6 @@ bool Gameover(int score, int max_combo, int hit, int miss, int out)
 		outtextxy(135, 356, msg3);
 		outtextxy(493, 356, msg4);
 		outtextxy(319, 356, msg5);
-
 
 		int mx = mousex() ;
 		int my = mousey() ;
@@ -312,16 +316,17 @@ bool Gameover(int score, int max_combo, int hit, int miss, int out)
 		{
 			int mx , my ;
 			getmouseclick(WM_LBUTTONDOWN, mx, my);
-			std::cout << mx << "  " << my << std::endl;
+			// std::cout << mx << "  " << my << std::endl;
 
-			if(mx > 79 && mx < 276 && my > 401 && my < 440){
+			if(mx > 79 && mx < 276 && my > 401 && my < 440)
+			{
 				closegraph();
 				return false ;
 			}
-			else if(mx > 465 && mx < 541 && my > 406 && my < 422){
+			else if(mx > 465 && mx < 541 && my > 406 && my < 422)
+			{
 				return true ;
 			}		
 		}
 	}
-
 }
