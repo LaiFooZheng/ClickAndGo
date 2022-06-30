@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <conio.h>
 #include "Shape.hpp"
+#include "Circle.hpp"
+#include "Square.hpp"
+#include "GameManager.hpp"
 
 #include <iostream>
 
@@ -71,24 +74,7 @@ int startingMenu(bool gameover)
 			
 		}
 	}
-	// else 
-	// {
-	// 	settextjustify(CENTER_TEXT, CENTER_TEXT);
-	// 	settextstyle(style, HORIZ_DIR, size);
 
-	// 	midx = getmaxx() / 2;
-	// 	midy = getmaxy() / 2;
-
-	// 	char* text = "GAME OVER" ; // Do a game over menu later
-	// 	outtextxy(midx, midy, text);
-
-	// 	if(getch())
-	// 	{
-	// 		closegraph();
-	// 		return 0;
-	// 	}
-	// }
-	/* clean up */
 }
 
 int howtoplayMenu()
@@ -329,4 +315,20 @@ bool gameOver(int score, int max_combo, int hit, int miss, int out)
 			}		
 		}
 	}
+}
+
+void drawing(Shape **p, Circle &circles, Square &squares, int width , int playheight, int color, char* text)
+{
+	for(int i = 0 ; i < 2 ; i++){
+		p[i] -> undraw() ;
+	}
+	// circles.undrawCircle();
+	// squares.undrawSquare();
+	displayText(circles, text);
+
+	circles.setLocationCircle(width, playheight);
+	squares.setLocationSquare(circles, width, playheight);
+
+	circles.drawCircle(color);
+	squares.drawSquare();
 }

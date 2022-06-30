@@ -7,6 +7,8 @@
 
 #include <graphics.h>
 #include "Shape.hpp"
+#include "Circle.hpp"
+#include "Square.hpp"
 
 #include "GameManager.hpp"
 
@@ -69,9 +71,16 @@ int main()
 		srand(time(NULL));
 
 		readimagefile("asset/game_background.jpg", 0, 0, width, height);
-
+		
+		Shape *p [2] ;
 		Circle circles;
 		Square squares;
+		p[0] = &circles ;
+		p[1] = &squares ;
+
+		
+
+
 
 		// For Hard Gamemode
 		if(gamemode == 2)
@@ -97,8 +106,7 @@ int main()
 					}				
 					//cout << "max COMBO: " << max_combo << endl; 
 					clock.reset();
-
-					drawing(circles, squares, width, playheight, 2, "HIT");
+					drawing(p, circles, squares, width, playheight, 2, "HIT");
 					hit++;
 					setcolor(WHITE);
 					points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
@@ -119,8 +127,7 @@ int main()
 					lifepoint--;
 					combo = 0;
 					clock.reset();
-
-					drawing(circles, squares, width, playheight, 15, "MISS");
+					drawing(p, circles, squares, width, playheight, 15, "MISS");
 					miss++;
 					points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
 				}
@@ -131,8 +138,7 @@ int main()
 				lifepoint--;
 				combo = 0 ;
 				clock.reset();
-
-				drawing(circles, squares, width, playheight, 15, "OUT");
+				drawing(p, circles, squares, width, playheight, 15, "OUT");
 				out++;
 				points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
 			}
