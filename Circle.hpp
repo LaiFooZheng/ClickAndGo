@@ -4,11 +4,13 @@ class Circle : public Shape
 {
 private:
     int m_r;
+		Shape* m_shapes ;
 
 public:
 	Circle();
 	Circle(int x, int y, int r);
 	Circle(int x, int y, int r, int dx, int dy);
+	Circle(Shape* ) ;
 	
 	void setRadius(int r);
 	int getX();

@@ -8,6 +8,9 @@ Square::Square()
 	: Shape(), m_side(0) {}
 Square::Square(int side)
 	: Shape(), m_side(side) {}
+Square::Square(Shape* shapes):m_side(100){
+	this ->	m_shapes = shapes ;
+}
 
 void Square::setSide(int side) {m_side = side;}
 

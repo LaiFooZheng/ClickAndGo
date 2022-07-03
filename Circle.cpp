@@ -11,6 +11,11 @@ Circle::Circle(int x, int y, int r)
 	: Shape(x, y),  m_r(r) {}	
 Circle::Circle(int x, int y, int r, int dx, int dy)
 	: Shape(x, y, dx, dy),  m_r(r) {}
+Circle::Circle(Shape* shapes):m_r(100)
+{
+	this ->	m_shapes = shapes ;
+}
+
 
 void Circle::setRadius(int r) {m_r = r;}
 

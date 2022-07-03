@@ -72,12 +72,15 @@ int main()
 
 		readimagefile("asset/game_background.jpg", 0, 0, width, height);
 		
-		Shape *p [2] ;
-		Circle circles;
-		Square squares;
-		p[0] = &circles ;
-		p[1] = &squares ;
+		
+		Shape p1 [2] ;
+		Circle circles = Circle(&p1[0]);
+		Square squares = Square(&p1[1]);
 
+		// Shape *p = new Shape[2] ;
+
+		// Circle c = new Circle() ;
+		// Square s = new Square() ;
 		
 
 
@@ -106,7 +109,7 @@ int main()
 					}				
 					//cout << "max COMBO: " << max_combo << endl; 
 					clock.reset();
-					drawing(p, circles, squares, width, playheight, 2, "HIT");
+					drawing(&squares, &circles, circles, squares, width, playheight, 2, "HIT");
 					hit++;
 					setcolor(WHITE);
 					points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
@@ -127,7 +130,7 @@ int main()
 					lifepoint--;
 					combo = 0;
 					clock.reset();
-					drawing(p, circles, squares, width, playheight, 15, "MISS");
+					drawing(&squares, &circles, circles, squares, width, playheight, 15, "MISS");
 					miss++;
 					points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
 				}
@@ -138,7 +141,7 @@ int main()
 				lifepoint--;
 				combo = 0 ;
 				clock.reset();
-				drawing(p, circles, squares, width, playheight, 15, "OUT");
+				drawing(&squares, &circles, circles, squares, width, playheight, 15, "OUT");
 				out++;
 				points(width, height, lifepoint, score, combo, max_combo, hit, miss, out);
 			}
